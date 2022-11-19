@@ -2,7 +2,7 @@ import express from "express";
 import instituciones from "../models/instituciones";
 import obras from "../models/obras";
 import rampa from "../models/rampas";
-import sendas from "../models/rampas";
+import sendas from "../models/sendas";
 
 //Obtener puntos
 
@@ -10,7 +10,7 @@ export const getPoints = async (req, res) => {
   //del parametro obtengo la tabla de la que quiero obtener los datos
   const table = req.query.cat; // por ejemplo: table = "instituciones"
   const filter = req.query.filter; // por ejemplo: filter = "nombre"
-
+  console.log(table);
   //obtengo los datos de la tabla
   if (table == "instituciones") {
     const data = await instituciones.find({ tipo: filter });
