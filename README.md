@@ -5,9 +5,9 @@
 
 1. [Descripción del Problema](#descripcion)
 2. [Solución del Problema](#capturas-de-pantalla)
-5. [Anexo](#anexo)
-6. [Equipo Red Team](#desarrolladores)
-7. [Licencia](#licencia)
+3. [Anexo](#anexo)
+4. [Equipo Red Team](#desarrolladores)
+5. [Licencia](#licencia)
 
 <a name="descripcion"/>
 
@@ -25,14 +25,14 @@ Desarrollo de una aplicación web y móvil que permita a los usuarios tener libr
 
 <a name="anexo"/>
 
-## 5. Anexo 📢
+## 3. Anexo 📢
 
 - [Presentación](https://www.canva.com/design/DAFSaHIU5kY/YhYYsXUyNvSF6o7G24XQIg/edit?utm_content=DAFSaHIU5kY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton): vea la presentación que se realizo en el evento.
 
 
 <a name="desarrolladores"/>
 
-## 6. Equipo Red Team ⚡
+## 4. Equipo Red Team ⚡
 
 - Imfeld, Facundo
 - Del Blanco, Julieta
@@ -42,7 +42,7 @@ Desarrollo de una aplicación web y móvil que permita a los usuarios tener libr
 
 <a name="licencia"/>
 
-## 7. Licencia ✒️
+## 5. Licencia ✒️
 
 MIT
 
