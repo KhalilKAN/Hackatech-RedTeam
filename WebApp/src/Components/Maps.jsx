@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-
-//Import css
 import "./Maps.css";
-
-//Import components leaflet
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-//Import css leaflet
 import "leaflet/dist/leaflet.css";
-
-//Import marcadores
 import { Marcadores } from "./Marcadores";
-
-//Import icons
 import { yourIcon } from "./Icon";
 
 export const Maps = () => {

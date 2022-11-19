@@ -1,12 +1,6 @@
 import React from "react";
-
-//Import components leaflet
 import { Marker, Popup } from "react-leaflet";
-
-//Import icons
 import { LocationIcon } from "./Icon";
-
-//Import styles
 import "./Maps.css";
 
 export const Marcadores = ({ paradas }) => {

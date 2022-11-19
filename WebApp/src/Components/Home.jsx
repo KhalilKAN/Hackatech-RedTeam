@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
-//Import Link
 import { Link } from "react-router-dom";
-//Import Select
 import Select from "react-select";
-//Import paradas
 import { paradas_sarmiento } from "../Data/paradas_sarmiento";
 import { paradas_barranqueras } from "../Data/paradas_barranqueras";
-//Import icon next
 import { GrLinkNext } from "react-icons/gr";
-//Import styles
 import { customStyles } from "./styles";
-//Import images
 import Fondo from "../Images/fondo.png";
 import logo from "../Images/Logo.png";
 import circulo1 from "../Images/Circle1.png";
 import circulo2 from "../Images/Circle2.png";
 
 export const Home = () => {
-  //Filtro las paradas de IDA y VUELTA por separado
   const paradas_sarmiento_ida = paradas_sarmiento
     .map((parada) => {
       if (parada.sentido === "IDA") {
@@ -140,17 +133,8 @@ export const Home = () => {
             styles={customStyles}
             isSearchable={false}
           />
-          <h2>Destinos</h2>
 
-          <Select
-            placeholder="Elegí un destino"
-            options={optionsSentido()}
-            value={state.options}
-            onChange={handleChange}
-            closeMenuOnSelect={true}
-            styles={customStyles}
-            isSearchable={false}
-          />
+        
         </div>
 
         <div className="boton">
