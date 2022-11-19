@@ -1,0 +1,28 @@
+.float-options{
+    position: absolute !important;
+    z-index: 2000 !important;
+    bottom: 130px;
+    right: 0;
+}
+.container-menu{
+    height: 50px !important;
+}
+.container-menu-ul{
+    height: 100% !important;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+.container-menu-ul > li{
+    background-color: rgba(255, 255, 255, .1) !important;
+    font-size: 20px;
+    height: 40px !important;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    transition: all .2s;
+}
+.container-menu-ul > li:hover{
+    background-color: white !important;
+}

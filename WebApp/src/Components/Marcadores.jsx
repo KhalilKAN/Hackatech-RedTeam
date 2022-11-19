@@ -1,18 +1,19 @@
 import React from "react";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, Polyline } from "react-leaflet";
 import { LocationIcon } from "./Icon";
 import "./Maps.css";
 
-export const Marcadores = ({ paradas }) => {
-  const marcadore = paradas.map((parada) => {
+export const Marcadores = ({ datas }) => {
+  const marcadore = datas.map((data) => {
     return (
       <Marker
-        key={parada.gid}
-        position={{ lat: parada.lat.toString(), lng: parada.lng.toString() }}
+        key={data._id}
+        position={{ lat: data.latitud.toString(), lng: data.longitud.toString() }}
         icon={LocationIcon}
       >
         <Popup>
-          <h1 className="popup">{`Direccion: ${parada.ubicacion}`}</h1>
+          <h1 className="popup">{`Direccion: ${(data.direccion) ? data.direccion: ""}`}</h1>
+          <h1 className="popup">{`${(data.nombre) ? data.nombre: ""}`}</h1>
         </Popup>
       </Marker>
     );

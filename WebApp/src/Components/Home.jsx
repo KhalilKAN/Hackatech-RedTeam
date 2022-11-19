@@ -1,110 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { paradas_sarmiento } from "../Data/paradas_sarmiento";
-import { paradas_barranqueras } from "../Data/paradas_barranqueras";
 import { GrLinkNext } from "react-icons/gr";
 import { customStyles } from "./styles";
-import Fondo from "../Images/fondo.png";
-import logo from "../Images/Logo.png";
+import Fondo from "../Images/fondo.svg";
+import logo from "../Images/Logo.svg";
 import circulo1 from "../Images/Circle1.png";
 import circulo2 from "../Images/Circle2.png";
 
 export const Home = () => {
-  const paradas_sarmiento_ida = paradas_sarmiento
-    .map((parada) => {
-      if (parada.sentido === "IDA") {
-        return parada;
-      }
-    })
-    .filter(function (dato) {
-      return dato != undefined;
-    });
-  const paradas_sarmiento_vuelta = paradas_sarmiento
-    .map((parada) => {
-      if (parada.sentido === "VUELTA") {
-        return parada;
-      }
-    })
-    .filter(function (dato) {
-      return dato != undefined;
-    });
-  const paradas_barranqueras_vuelta = paradas_barranqueras
-    .map((parada) => {
-      if (parada.sentido === "VUELTA") {
-        return parada;
-      }
-    })
-    .filter(function (dato) {
-      return dato != undefined;
-    });
-
-  const paradas_barranqueras_ida = paradas_barranqueras
-    .map((parada) => {
-      if (parada.sentido === "IDA") {
-        return parada;
-      }
-    })
-    .filter(function (dato) {
-      return dato != undefined;
-    });
-
-  //Opciones de ramal
-  const optionsRamal = [
-    { value: paradas_barranqueras, label: "Barranqueras" },
-    { value: paradas_sarmiento, label: "Sarmiento" },
+  const categories = [
+    { value: "instituciones", label: "Instituciones" },
+    { value: "obras", label: "Obras" },
+    { value: "sendas", label: "Sendas" },
+    { value: "rampa", label: "Rampas" },
   ];
 
-  //Opciones de sentido segun seleccion de ramal
-  const optionsSentido = () => {
-    if (state.paradas === paradas_barranqueras) {
-      return [
-        { value: paradas_barranqueras_ida, label: "Corrientes-Chaco" },
-        { value: paradas_barranqueras_vuelta, label: "Chaco-Corrientes" },
-      ];
-    } else {
-      return [
-        { value: paradas_sarmiento_ida, label: "Corrientes-Chaco" },
-        { value: paradas_sarmiento_vuelta, label: "Chaco-Corrientes" },
-      ];
+  const type = [
+    { value: "braille", label: "Braille" },
+    { value: "señas", label: "Lenguaje de Señas" }
+  ];
+
+  const [state1, setState1] = useState({optionSelect: "",});
+  const [state2, setState2] = useState({optionSelect: "",});
+  const [data, setData] = useState([]);
+  const handleChange1 = async (option) => {
+    if(option.value != "instituciones" && option.value != "rampa"){
+      const data = await getData("points?cat=" + option.value);
+      console.log(data)
+      setData([data, 0]);
+    }else if(option.value == "rampa"){
+      const data = await getData("points?cat=" + option.value);
+      console.log(data)
+      setData([data, 1]);
     }
-  };
 
-  //Defino un estdo para manejar coordenadas y paradas
-  const [state, setState] = useState({
-    lat: 0,
-    lng: 0,
-    paradas: [],
-    optionSelect: "",
-  });
-
-  //Pregunto por los permisos de la ubicacion al cargar la pagina de inicio
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setState({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    );
-  }, []);
-
-  //Cambio el estado al seleccionar una opcion
-  const handleChange = (option) => {
-    console.log(option);
-    setState({
-      ...state,
-      optionSelect: option.label,
-      paradas: option.value,
+    setState1({
+      optionSelect: option.value,
     });
+
+
   };
+  const url = "http://localhost:4000/"
+
+  const getData = async (path) => {
+    const data = await fetch(url + path);
+    const json = await data.json();
+    return json
+  }
+
+  const handleChange2 = async (option) => {
+    setState2({
+      optionSelect: option.value,
+    });
+    
+    const data = await getData("points?cat=" + state1.optionSelect + "&filter=" + option.value);
+    console.log(data);
+    setData([data, 1]);
+  };
+
   return (
     <div className="conteiner">
       <img src={logo} alt="logo parada de colectivos" className="logo" />
@@ -120,32 +74,46 @@ export const Home = () => {
       />
       <img src={Fondo} alt="paradas de colectivos" className="fondo" />
       <div className="body">
-        <h1>¿Dónde esperamos el cole?</h1>
+        <h1>¿Qué quieres ver?</h1>
 
         <div className="option">
-          <h2>Ramales</h2>
+          <h2>Categorias</h2>
           <Select
-            placeholder="Elegí un ramal"
-            options={optionsRamal}
-            value={state.options}
-            onChange={handleChange}
+            placeholder="Elegí una categoria"
+            options={categories}
+            value={state1.options}
+            onChange={handleChange1}
             closeMenuOnSelect={true}
             styles={customStyles}
             isSearchable={false}
           />
-
-        
+        {
+          (state1.optionSelect == "instituciones") &&
+          <>
+          
+          <h2>Tipo</h2>
+          <Select
+            placeholder="Elegí un tipo"
+            options={type}
+            value={state2.options}
+            onChange={handleChange2}
+            closeMenuOnSelect={true}
+            styles={customStyles}
+            isSearchable={false}
+          />
+          </>
+        }
         </div>
 
         <div className="boton">
           <Link
             to={{
               pathname: "/map",
-              state,
+              data,
             }}
             className="link"
           >
-            ¡Hechemos un vistazo al mapa!
+            ¡Echemos un vistazo al mapa!
           </Link>
           <span>
             <GrLinkNext className="icon" />
